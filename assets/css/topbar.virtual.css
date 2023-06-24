@@ -38,6 +38,15 @@
   font-weight: bold;
 }
 
+.btn-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
 .filterable-button .btn:hover {
   background-color: #747474;
   color: #fff;
