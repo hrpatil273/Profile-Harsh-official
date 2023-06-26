@@ -1424,3 +1424,7 @@ a:hover, a:active {
 .theme-purple .theme-list li::before {
     border-color: #6f42c1;
 }
+
+.btn-group a{
+    padding: 0.5vw;
+}
