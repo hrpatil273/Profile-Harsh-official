@@ -1,262 +1,993 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Harshwardhan Patil — ML Engineer</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/styles.css">
-    <script>
-      // Prevent flash of wrong theme
-      (function() {
-        const storedTheme = localStorage.getItem('user-theme-preference');
-        if (storedTheme === 'light' || storedTheme === 'dark') {
-          document.documentElement.setAttribute('data-theme', storedTheme);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.setAttribute('data-theme', 'dark');
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      })();
-    </script>
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f3f2ef;
+            color: #000000e6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .nav-content {
+            max-width: 1128px;
+            margin: 0 auto;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .linkedin-logo {
+            width: 34px;
+            height: 34px;
+            fill: #0a66c2;
+        }
+
+        .search-box {
+            width: 280px;
+            padding: 8px 12px;
+            background-color: #eef3f8;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            background-color: #e1e9f1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .nav-icon:hover {
+            color: #000;
+        }
+
+        .profile-pic-nav {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1128px;
+            margin: 24px auto;
+            padding: 0 16px;
+            display: grid;
+            /* grid-template-columns: fr 1fr; */
+            gap: 24px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            overflow: hidden;
+        }
+
+        .cover-image {
+            height: 128px;
+            background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
+            position: relative;
+        }
+
+        .cover-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .profile-content {
+            padding: 0 24px 24px;
+            position: relative;
+        }
+
+        .profile-image-wrapper {
+            display: flex;
+            margin-top: -80px;
+            margin-bottom: 16px;
+        }
+
+        .profile-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background-color: white;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            margin-top: 80px;
+            margin-bottom: 16px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .profile-headline {
+            font-size: 16px;
+            color: #000000e6;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .profile-location {
+            font-size: 14px;
+            color: #00000099;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .profile-connections {
+            font-size: 14px;
+            color: #0a66c2;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn {
+            padding: 8px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #0a66c2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #004182;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #0a66c2;
+            border: 1px solid #0a66c2;
+        }
+
+        .btn-secondary:hover {
+            background-color: #eef3f8;
+        }
+
+        .btn-tertiary {
+            background-color: white;
+            color: #00000099;
+            border: 1px solid #00000099;
+        }
+
+        .btn-tertiary:hover {
+            background-color: #f3f2ef;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .section-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 24px;
+            height: 24px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            color: #000;
+        }
+
+        /* About Section */
+        .about-text {
+            color: #000000e6;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Education Section */
+        .education-item {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .education-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .education-details {
+            flex: 1;
+        }
+        .education-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .education-company {
+            font-size: 14px;
+            color: #000000e6;
+        }
+        .education-meta {
+            font-size: 14px;
+            color: #00000099;
+            margin-top: 4px;
+        }
+        .education-description {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #000000e6;
+            line-height: 1.5;
+            display: none;
+        }
+        .education-description.expanded {
+            display: block;
+        }
+        .relevant-coursework-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .relevant-coursework-tag {
+            padding: 6px 12px;
+            background-color: #eef3f8;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .experience-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .experience-details {
+            flex: 1;
+        }
+
+        .experience-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .experience-company {
+            font-size: 14px;
+            color: #000000e6;
+        }
+
+        .experience-meta {
+            font-size: 14px;
+            color: #00000099;
+            margin-top: 4px;
+        }
+
+        .experience-description {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #000000e6;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .experience-description.expanded {
+            display: block;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            padding: 6px 12px;
+            background-color: #eef3f8;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .show-more-btn {
+            margin-top: 8px;
+            color: #00000099;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .show-more-btn:hover {
+            color: #000;
+        }
+
+        /* Skills Section */
+        .skill-item {
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .skill-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .skill-endorsements {
+            font-size: 14px;
+            color: #00000099;
+        }
+
+        .show-all-btn {
+            width: 100%;
+            margin-top: 16px;
+            padding: 10px;
+            background: white;
+            border: 1px solid #00000099;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #00000099;
+            cursor: pointer;
+        }
+
+        .show-all-btn:hover {
+            background-color: #f3f2ef;
+            border-color: #000;
+            color: #000;
+        }
+
+        /* People Suggestions */
+        .person-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .person-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .person-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #ddd;
+            flex-shrink: 0;
+        }
+
+        .person-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .person-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .person-title {
+            font-size: 12px;
+            color: #00000099;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .connect-btn {
+            margin-top: 8px;
+            padding: 4px 16px;
+            background: white;
+            border: 1px solid #00000099;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .connect-btn:hover {
+            background-color: #f3f2ef;
+            border-color: #000;
+        }
+        
+/* Skills Section - Tabular Layout */
+.skills-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.skill-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+  gap: 2rem;
+}
+
+.skill-row:last-child {
+  border-bottom: none;
+}
+
+.skill-row:hover {
+  background: linear-gradient(135deg, rgba(122, 122, 122, 0.05), rgba(110, 110, 110, 0.05));
+  transform: translateX(4px);
+}
+
+.skill-category {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 200px;
+  font-weight: 600;
+  color: var(--blue-primary);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.skill-category i {
+  font-size: 1.25rem;
+  color: var(--purple-primary);
+  width: 24px;
+  text-align: center;
+}
+
+.skill-values {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  word-wrap: break-word;
+}
+
+/* Responsive Skills Table */
+@media (max-width: 768px) {
+  .skill-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .skill-category {
+    min-width: auto;
+    width: 100%;
+    font-size: 0.95rem;
+  }
+  
+  .skill-values {
+    font-size: 0.95rem;
+    width: 100%;
+  }
+}
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Icons */
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .chevron {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar-nav" id="sidebarNav">
-        <ul class="sidebar-nav-list">
-            <li>
-                <a href="#home" class="nav-link active" data-section="home">
-                    <i class="bi bi-house-fill"></i>
-                    <span class="nav-text">Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="#education" class="nav-link" data-section="education">
-                    <i class="bi bi-mortarboard-fill"></i>
-                    <span class="nav-text">Education</span>
-                </a>
-            </li>
-            <li>
-                <a href="#experience" class="nav-link" data-section="experience">
-                    <i class="bi bi-briefcase-fill"></i>
-                    <span class="nav-text">Experience</span>
-                </a>
-            </li>
-            <li>
-                <a href="#skills" class="nav-link" data-section="skills">
-                    <i class="bi bi-code-slash"></i>
-                    <span class="nav-text">Skills</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
 
-    <!-- Theme Toggle Button -->
-    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <i class="bi bi-moon-fill" id="themeIcon"></i>
-    </button>
-    
-    <div class="main-wrapper">
-        <!-- Hero Section Card -->
-        <section id="home" class="fullscreen-section container py-4 py-md-5">
-            <div class="card profile-card">
-                <div class="card-body p-4 p-md-5">
-                    <div class="d-flex flex-column flex-md-row align-items-center gap-4">
-                        <div class="flex-shrink-0 text-center">
-                            <div class="profile-image-wrapper">
-                                <img src="assets/profile.png" alt="Harshwardhan Patil" class="profile-image" />
-                            </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Column - Main Content -->
+        <div class="main-content">
+            <!-- Profile Header Card -->
+            <div class="card profile-header">
+                <div class="cover-image">
+                    <img src="https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=300&fit=crop" alt="Cover">
+                </div>
+                <div class="profile-content">
+                    <div class="profile-image-wrapper">
+                        <img src="assets\profile.png" alt="Profile" class="profile-image">
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">Harshwardhan Patil</h1>
+                        <p class="profile-headline">Machine Learning Engineer | Building AI-powered solutions</p>
+                        <div class="profile-location">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>Indianapolis, IN</span>
                         </div>
-                        <div class="text-center text-md-start flex-grow-1">
-                            <h1 class="display-4 mb-2 gradient-text">Harshwardhan Patil</h1>
-                            <h5 class="text-muted mb-3">Data/ML/AI Engineer</h5>
-                            <p class="lead mb-3">I am a Machine Learning Engineer exploring the quantitative field, with a simple motto: <strong>Aspire and create to inspire!</strong></p>
-                            <p class="mb-4 about-summary">Currently serving as a Machine Learning Engineer at Upper Hand AI, I specialize in developing production-grade recommendation systems and data analytics solutions. My expertise spans Python, PyTorch, TensorFlow, and various ML algorithms, with a proven track record of generating business impact through innovative data-driven solutions. I'm passionate about solving complex problems through intelligent algorithms and continuously pushing the boundaries of what's possible with machine learning.</p>
-                            <div class="view-counter mb-3">
-                                <i class="bi bi-eye-fill"></i>
-                                <span class="view-count-text">Views: </span>
-                                <span id="viewCount" class="view-count-number">-</span>
-                            </div>
-                            <nav class="social-links">
-                                <a href="mailto:mail.harshwardhanpatil+portfolio@gmail.com" target="_blank" rel="noopener" aria-label="Email" class="social-link">
-                                    <i class="bi bi-envelope-fill"></i>
-                                </a>
-                                <a href="https://linkedin.com/in/harshwardhanpatil" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-link">
-                                    <i class="bi bi-linkedin"></i>
-                                </a>
-                                <a href="https://github.com/hrpatil273" target="_blank" rel="noopener" aria-label="GitHub" class="social-link">
-                                    <i class="bi bi-github"></i>
-                                </a>
-                                <a href="/Harshwardhan Patil Resume.pdf" target="_blank" rel="noopener" aria-label="Resume" class="social-link">
-                                    <i class="bi bi-file-earmark-person-fill"></i>
-                                </a>
-                            </nav>
-                        </div>
+                        <p class="profile-connections">3+ years of experience</p>
+                    </div>
+                    <div class="profile-actions">
+                    <a href="mailto:mail.harshwardhanpatil+portfolio@gmail.com"><button class="btn btn-secondary"><i class="bi bi-envelope-fill"></i> Email</button></a>
+                    <a href="https://www.linkedin.com/in/harshwardhanpatil/" target="_blank"><button class="btn btn-secondary"><i class="bi bi-linkedin"></i> LinkedIn</button></a>
+                    <a href="https://github.com/hrpatil273" target="_blank"><button class="btn btn-secondary"><i class="bi bi-github"></i> GitHub</button></a>
+                    <a href="/Harshwardhan Patil Resume.pdf" target="_blank"><button class="btn btn-secondary"><i class="bi bi-file-earmark-person-fill"></i> Resume</button></a>
+                    </div>  
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="card">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">About</h2>
+                    </div>
+                    <p class="about-text">
+                        I am a Machine Learning Engineer focused on designing and operating production-grade, end-to-end ML systems on Google Cloud Platform.
+                        <br><br>I am leading the development of ML workflows spanning data modeling, feature engineering, training, deployment, and monitoring. I work primarily with Python, PyTorch, BigQuery, PostgreSQL, Docker, Terraform, REST APIs, and GitHub. I have also delivered analytical dashboards to meet client and business needs.
+                        <br><br>I approach problems with first-principles thinking: focusing on system boundaries and failure modes before selecting models or architecture. Beyond hands-on development, I own architectural decisions for ML systems and Data Pipelines, review designs and code, and help define standards for model development and ML infrastructure. I regularly mentor engineers, lead knowledge transfer sessions, and raise the quality bar across performance, cost efficiency, and long-term maintainability.
+                        <br><br>I am currently looking to grow into senior-level machine learning roles where I can continue to have impact through technical leadership, system design, and mentorship.
+                        <br><br>Outside of work, I enjoy playing Chess, Making DIY Diaries, and Doing Origami.
+                </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="card">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Experience</h2>
+                    </div>
+
+                    <div id="experience-list">
+                        <!-- Experience items will be generated by JavaScript -->
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Education Section -->
-        <section id="education" class="fullscreen-section content-fit-section container py-3 py-md-4">
-            <h2 class="section-title">Education</h2>
-            <div class="row g-4">
-                <div class="col-12">
-                    <div class="card content-card">
-                        <div class="card-body p-4 p-md-5">
-                            <div class="card-icon">
-                                <i class="bi bi-mortarboard-fill"></i>
-                            </div>
-                            <h5 class="card-title">Master's in Data Science</h5>
-                            <p class="card-subtitle mb-3">Indiana University, Bloomington, IN, USA (2022 - 2024)</p>
-                            <ul class="card-list">
-                                <li>President and Director of Public Relations, Data Science Club at IU</li>
-                                <li>DS Representative at Graduate & Professional Student Government</li>
-                                <li>Adobe Student Ambassador for Indiana University</li>
-                                <li>Luddy Outstanding Service Award, May 2023 & May 2024</li>
-                                <li>Runner-up at NACE Starleague Chess Tournament - Division 20 (Indiana University Chess Team), Fall 2023</li>
-                                <li>Third Place at GT-IDEA Case Competition, November 2023</li>
-                            </ul>
-                        </div>
+            
+            <!-- Education Section -->
+            <div class="card">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Education</h2>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="card content-card">
-                        <div class="card-body p-4 p-md-5">
-                            <div class="card-icon">
-                                <i class="bi bi-book-fill"></i>
-                            </div>
-                            <h5 class="card-title">Bachelor's in Computer Science</h5>
-                            <p class="card-subtitle mb-3">Shivaji University, Kolhapur, India (2016 - 2020)</p>
-                            <ul class="card-list">
-                                <li>Co-Founder, Code-Space (Programming Club)</li>
-                                <li>Head, Student's Training and Placement Committee (2019-2020)</li>
-                                <li>Member, Student's Council of DOT (2017-2020)</li>
-                                <li>Anchor, cultural show 'Symphony' (editions 2K18, 2K19, 2K20)</li>
-                                <li>Member, 'Harit Sena Dal' (2017-2019)</li>
-                                <li>Player, DOT-CST's Kabaddi and Kho-Kho Team</li>
-                            </ul>
-                        </div>
+
+                    <div id="education-list">
+                        <!-- Education items will be generated by JavaScript -->
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="fullscreen-section content-fit-section container py-3 py-md-4">
-            <h2 class="section-title">Experience</h2>
-            <div class="row g-4">
-                <div class="col-12">
-                    <div class="card content-card">
-                        <div class="card-body p-4 p-md-5">
-                            <div class="card-icon">
-                                <i class="bi bi-briefcase-fill"></i>
-                            </div>
-                            <h5 class="card-title">Machine Learning Engineer</h5>
-                            <p class="card-subtitle mb-3">Upper Hand AI, Indianapolis, IN (May 2024 – Present)</p>
-                            <ul class="card-list">
-                                <li>Designed, Developed and Managed of event recommendation algorithms, achieving 63% production accuracy.</li>
-                                <li>Generated $800 in MRR by implementing profit and loss transformations on QuickBooks data and extracting key KPIs, including MRR, ARR, and YoY & MoM changes in revenue, expenses, and net profit.</li>
-                                <li>Designed and developed a dashboard to analyze the demographic and economic characteristics of client locations, providing a competitive advantage that generated an additional $2,500 ARR.</li>
-                            </ul>
-                        </div>
+         
+            <!-- Skills Section -->
+            <div class="card">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Skills</h2>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="card content-card">
-                        <div class="card-body p-4 p-md-5">
-                            <div class="card-icon">
-                                <i class="bi bi-gear-fill"></i>
+                        <div class="skills-table">
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-code-square"></i>
+                                    <span>Languages</span>
+                                </div>
+                                <div class="skill-values">Python</div>
                             </div>
-                            <h5 class="card-title">System Engineer</h5>
-                            <p class="card-subtitle mb-3">Indiana University, Bloomington, IN (Nov 2020 – July 2022)</p>
-                            <ul class="card-list">
-                                <li>Modified more than 50 ETL and ELT pipelines for streamlining data collection, integration and processing.</li>
-                                <li>Achieved a 20% improvement in database performance through Query Optimization and Index Tuning.</li>
-                                <li>Improved Operational excellence by 30% by automating job monitoring and recovery processes.</li>
-                            </ul>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-database"></i>
+                                    <span>Database</span>
+                                </div>
+                                <div class="skill-values">PostgreSQL</div>
+                            </div>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-cloud"></i>
+                                    <span>Cloud</span>
+                                </div>
+                                <div class="skill-values">Google Cloud Platform</div>
+                            </div>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-graph-up"></i>
+                                    <span>Statistical Analysis</span>
+                                </div>
+                                <div class="skill-values">Descriptive Statistics, Hypothesis Testing, Probability Theory</div>
+                            </div>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-cpu"></i>
+                                    <span>ML Algorithms</span>
+                                </div>
+                                <div class="skill-values">Regression, Classification, Clustering, Random Forests</div>
+                            </div>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-stack"></i>
+                                    <span>Frameworks</span>
+                                </div>
+                                <div class="skill-values">PyTorch, JAX, TensorFlow, Keras</div>
+                            </div>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-bar-chart"></i>
+                                    <span>Data Visualization</span>
+                                </div>
+                                <div class="skill-values">Matplotlib, Metabase</div>
+                            </div>
+                            <div class="skill-row">
+                                <div class="skill-category">
+                                    <i class="bi bi-tools"></i>
+                                    <span>Miscellaneous</span>
+                                </div>
+                                <div class="skill-values">Linux, Git</div>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="fullscreen-section content-fit-section container py-3 py-md-4">
-            <h2 class="section-title">Skills</h2>
-            <div class="row g-4">
-                <div class="col-12">
-                    <div class="card content-card">
-                        <div class="card-body p-4 p-md-5">
-                            <div class="skills-table">
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-code-square"></i>
-                                        <span>Languages</span>
-                                    </div>
-                                    <div class="skill-values">Python</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-database"></i>
-                                        <span>Database</span>
-                                    </div>
-                                    <div class="skill-values">PostgreSQL</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-cloud"></i>
-                                        <span>Cloud</span>
-                                    </div>
-                                    <div class="skill-values">Cloud Run, Cloud Storage, CloudSQL, BigQuery, DataStream</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-graph-up"></i>
-                                        <span>Statistical Analysis</span>
-                                    </div>
-                                    <div class="skill-values">Descriptive Statistics, Hypothesis Testing, A/B Testing, Probability Theory</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-cpu"></i>
-                                        <span>ML Algorithms</span>
-                                    </div>
-                                    <div class="skill-values">Regression, Classification, Clustering, Random Forests</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-stack"></i>
-                                        <span>Frameworks</span>
-                                    </div>
-                                    <div class="skill-values">PyTorch, TensorFlow</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-bar-chart"></i>
-                                        <span>Data Visualization</span>
-                                    </div>
-                                    <div class="skill-values">Matplotlib, Metabase</div>
-                                </div>
-                                <div class="skill-row">
-                                    <div class="skill-category">
-                                        <i class="bi bi-tools"></i>
-                                        <span>Miscellaneous</span>
-                                    </div>
-                                    <div class="skill-values">Linux, Git</div>
-                                </div>
-                            </div>
+            <!-- Certifications Section -->
+            <!-- <div class="card">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Licenses & certifications</h2>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="7"/>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                            </svg>
+                        </div>
+                        <div class="experience-details">
+                            <h3 class="experience-title">AWS Certified Solutions Architect</h3>
+                            <p class="experience-company">Amazon Web Services</p>
+                            <p class="experience-meta">Issued 2023</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-icon">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="7"/>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+                            </svg>
+                        </div>
+                        <div class="experience-details">
+                            <h3 class="experience-title">Professional Scrum Master I</h3>
+                            <p class="experience-company">Scrum.org</p>
+                            <p class="experience-meta">Issued 2022</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div> -->
+        </div>
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/scripts.js"></script>
-</body>
+    <script>
+        // Experience Data
+        const experiences = [
+            {
+                id: 1,
+                title: "Machine Learning Engineer",
+                company: "Upper Hand",
+                companyLink: "https://upperhand.com/",
+                type: "Full-time",
+                location: "Indianapolis, IN",
+                startDate: "May 2024",
+                endDate: "Present",
+                duration: "1 yr 9 mos",
+                description: "<ul><li>Designed, Developed and Managed of event recommendation algorithms, achieving 63% production accuracy.</li><li>Generated $800 in MRR by implementing profit and loss transformations on QuickBooks data and extracting key KPIs, including MRR, ARR, and YoY & MoM changes in revenue, expenses, and net profit.</li><li>Designed and developed a dashboard to analyze the demographic and economic characteristics of client locations, providing a competitive advantage that generated an additional $2,500 ARR.</li></ul>",
+                skills: ["Python", "PostgeSQL", "GCP"]
+            },
+            {
+                id: 2,
+                title: "System Engineer",
+                company: "Infosys",
+                companyLink: "https://www.infosys.com/",
+                type: "Full-time",
+                location: "Remote",
+                startDate: "Nov 2020",
+                endDate: "Jul 2022",
+                duration: "1 yr 8 mos",
+                description: "<ul><li>Modified more than 50 ETL and ELT pipelines for streamlining data collection, integration and processing.</li><li>Achieved a 20% improvement in database performance through Query Optimization and Index Tuning.</li><li>Improved Operational excellence by 30% by automating job monitoring and recovery processes.</li></ul>",
+                skills: ["SQL", "Data Warehouse", "ETL"]
+            },
+        ];
 
+        // Education Data
+        const education = [
+            {
+                id: 11,
+                title: "Master of Science in Data Science",
+                company: "Indiana University",
+                companyLink: "https://www.iu.edu/",
+                type: "Full-time",
+                location: "Bloomington, IN",
+                startDate: "Aug 2022",
+                endDate: "May 2024",
+                duration: "2 yrs",
+                description: "<ul><li>President and Director of Public Relations, Data Science Club at IU</li><li>DS Representative at Graduate & Professional Student Government</li><li>Adobe Student Ambassador for Indiana University</li><li>Luddy Outstanding Service Award, May 2023 & May 2024</li><li>Runner-up at NACE Starleague Chess Tournament - Division 20 (Indiana University Chess Team), Fall 2023</li><li>Third Place at GT-IDEA Case Competition, November 2023</li></ul>",
+                relevantCoursework: ["Machine Learning", "Deep Learning"]
+            },
+            {
+                id: 12,
+                title: "Bachelor of Science in Computer Science",
+                company: "Shivaji University",
+                companyLink: "https://www.shu.edu.in/",
+                type: "Full-time",
+                location: "Kolhapur, IN",
+                startDate: "Aug 2016",
+                endDate: "May 2020",
+                duration: "4 yrs",
+                description: "<ul><li>Co-Founder, Code-Space (Programming Club)</li><li> Head, Student's Training and Placement Committee (2019-2020)</li><li> Member, Student's Council of DOT (2017-2020)</li><li> Anchor, cultural show 'Symphony' (editions 2K18, 2K19, 2K20)</li><li> Member, 'Harit Sena Dal' (2017-2019)</li><li> Player, DOT-CST's Kabaddi and Kho-Kho Team</li></ul>",
+                relevantCoursework: ["Data Structures", "Algorithms", "Database Systems", "Software Engineering"]
+            }
+        ];
+
+        // Generate Education Items
+        function generateEducationItems() {
+            const educationList = document.getElementById('education-list');
+            
+            education.forEach((edu, index) => {
+                const item = document.createElement('div');
+                item.className = 'education-item';
+
+        const relevantCourseworkHTML = edu.relevantCoursework.map(coursework => 
+            `<span class="skill-tag">${coursework}</span>`
+        ).join('');
+
+        item.innerHTML = `
+            <div class="education-icon">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                            </svg>
+            </div>
+            <div class="education-details">
+                <h3 class="education-title">${edu.title}</h3>
+                <p class="education-company">${edu.company} · ${edu.type}</p>
+                <p class="education-meta">${edu.startDate} - ${edu.endDate} · ${edu.duration}</p>
+                <p class="education-meta">${edu.location}</p>
+                <div class="education-description" id="desc-${edu.id}">
+                    <p class="about-text">${edu.description}</p>
+                    <div class="relevant-coursework-tags">
+                        ${relevantCourseworkHTML}
+                    </div>
+                </div>
+                <button class="show-more-btn" onclick="toggleDescription(${edu.id})">
+                    <span id="text-${edu.id}">Show more</span>
+                    <svg class="chevron" id="icon-${edu.id}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+            </div>
+        `;
+                
+                educationList.appendChild(item);
+            });
+        }
+
+        // Generate Experience Items
+        function generateExperienceItems() {
+            const experienceList = document.getElementById('experience-list');
+            
+            experiences.forEach((exp, index) => {
+                const item = document.createElement('div');
+                item.className = 'experience-item';
+                
+                const skillsHTML = exp.skills.map(skill => 
+                    `<span class="skill-tag">${skill}</span>`
+                ).join('');
+
+                item.innerHTML = `
+                    <div class="experience-icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <div class="experience-details">
+                        <h3 class="experience-title">${exp.title}</h3>
+                        <p class="experience-company">${exp.company} · ${exp.type}</p>
+                        <p class="experience-meta">${exp.startDate} - ${exp.endDate} · ${exp.duration}</p>
+                        <p class="experience-meta">${exp.location}</p>
+                        <div class="experience-description" id="desc-${exp.id}">
+                            <p class="about-text">${exp.description}</p>
+                            <div class="skills-tags">
+                                ${skillsHTML}
+                            </div>
+                        </div>
+                        <button class="show-more-btn" onclick="toggleDescription(${exp.id})">
+                            <span id="text-${exp.id}">Show more</span>
+                            <svg class="chevron" id="icon-${exp.id}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                
+                experienceList.appendChild(item);
+            });
+        }
+
+        // Toggle Experience Description
+        function toggleDescription(id) {
+            const desc = document.getElementById(`desc-${id}`);
+            const text = document.getElementById(`text-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            
+            if (desc.classList.contains('expanded')) {
+                desc.classList.remove('expanded');
+                text.textContent = 'Show more';
+                icon.innerHTML = '<polyline points="6 9 12 15 18 9"/>';
+            } else {
+                desc.classList.add('expanded');
+                text.textContent = 'Show less';
+                icon.innerHTML = '<polyline points="18 15 12 9 6 15"/>';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateExperienceItems();
+            generateEducationItems();
+            generateSkillsItems();
+        });
+    </script>
+</body>
 </html>
